@@ -8,10 +8,11 @@ const {
 const chat = async (prompt, json = false) => {
   const groq = new Groq({ apiKey: process.env.GEMINI_API_KEY });
   const res = await groq.chat.completions.create({
-    model: 'llama-3.3-70b-versatile',
+    model: 'openai/gpt-oss-120b',
     messages: [{ role: 'user', content: prompt }],
     temperature: 0.7,
     ...(json && { response_format: { type: 'json_object' } }),
+    reasoning_format: 'hidden',
   });
   return res.choices[0]?.message?.content || '';
 };
